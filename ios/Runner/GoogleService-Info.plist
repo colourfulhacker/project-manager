@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>822262383789-0a4jivkc8hai0pdbif074409ntc5cdce.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.822262383789-0a4jivkc8hai0pdbif074409ntc5cdce</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCCG6GebTTXoiyLNKF0eOwn7nG5UPwqq7U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>822262383789</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.cehpointProjectManagement</string>
+	<key>PROJECT_ID</key>
+	<string>cehpoint-app-11393</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cehpoint-app-11393.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:822262383789:ios:82a8fa9fcc8f533fdb7224</string>
+</dict>
+</plist>
