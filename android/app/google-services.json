@@ -29,6 +29,13 @@
             {
               "client_id": "822262383789-lklrdcng80acssu243uq574q1vptddis.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "822262383789-0a4jivkc8hai0pdbif074409ntc5cdce.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cehpointProjectManagement"
+              }
             }
           ]
         }

@@ -36,6 +36,7 @@ class _AddEmployeeState extends State<AddProject> {
       phone = phoneController.text;
       username = usernameController.text;
       password = passwordController.text;
+
       if (clientName.isEmpty ||
           projectName.isEmpty ||
           startDate.isEmpty ||
@@ -45,8 +46,22 @@ class _AddEmployeeState extends State<AddProject> {
           password.isEmpty) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Invalid Details')));
+            .showSnackBar(const SnackBar(content: Text('All Fields Required')));
+        return;
+      } else {
+        Navigator.of(context).pop();
+        clientNameController.clear();
+        passwordController.clear();
+        phoneController.clear();
+        usernameController.clear();
+        startDateController.clear();
+        endDateController.clear();
+        projectNameController.clear();
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Project Saved')));
       }
+
       await FirebaseFirestore.instance
           .collection('projects')
           .doc(projectName)
@@ -57,6 +72,9 @@ class _AddEmployeeState extends State<AddProject> {
         'end-date': endDate,
         'phone': phone,
         'username': username,
+        'password': password,
+      });
+      await FirebaseFirestore.instance.collection('users').doc(username).set({
         'password': password,
       });
     }

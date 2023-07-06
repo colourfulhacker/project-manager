@@ -141,7 +141,7 @@ class _ClientLoginState extends State<ClientLogin> {
                   onTap: () {
                     secretKey.currentState!.validate();
                     if (secretKey.currentState!.validate()) {
-                      authenticationController.loginClient();
+                      authenticationController.loginClient(context);
                     }
                   },
                   child: Container(
