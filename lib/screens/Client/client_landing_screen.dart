@@ -1,3 +1,4 @@
+import 'package:cehpoint_project_management/screens/Client/feedback.dart';
 import 'package:cehpoint_project_management/screens/Client/rate_our_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -232,7 +233,7 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                 height: 35,
                 width: MediaQuery.of(context).size.width,
                 child: const Text(
-                  " WEEKLY REPORT",
+                  "WEEKLY REPORT",
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                 ),
               ),
@@ -241,7 +242,7 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(12),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
@@ -263,9 +264,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                             ),
                             child: ExpansionTile(
                               initiallyExpanded: false,
-                              title: const Text(
-                                'Week-1',
-                                style: TextStyle(
+                              title: Text(
+                                'Week-${index + 1}',
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w700,
@@ -336,43 +337,48 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                                 Container(color: Colors.white, height: 18),
 
                                 //View FeedBack
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 50,
-                                  color: Colors.white,
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => const FeedbackForm());
+                                  },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     height: 50,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xff4A4A4A),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(12),
-                                        bottomRight: Radius.circular(12),
+                                    color: Colors.white,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 50,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff4A4A4A),
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(12),
+                                          bottomRight: Radius.circular(12),
+                                        ),
                                       ),
-                                    ),
-                                    child: const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.message_outlined,
-                                          size: 23,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 13,
-                                        ),
-                                        Text(
-                                          'Submit Feedback',
-                                          style: TextStyle(
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.message_outlined,
+                                            size: 23,
                                             color: Colors.white,
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w700,
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            width: 13,
+                                          ),
+                                          Text(
+                                            'Submit Feedback',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

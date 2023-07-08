@@ -107,12 +107,12 @@ class _ReportDetailsState extends State<ReportDetails> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: const TextField(
-                          style:  TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xff7F7F7F)),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xff7F7F7F)),
                           decoration: InputDecoration(
-                            hintText: "Add Reort link",
+                            hintText: "Add Report link",
                             hintStyle: TextStyle(
                               color: Color(0xff999999),
                             ),

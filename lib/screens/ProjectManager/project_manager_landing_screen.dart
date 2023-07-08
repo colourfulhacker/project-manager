@@ -75,13 +75,13 @@ class _ProjectManagerLandingScreenState
                               ];
                             },
                             onSelected: (value) {
-                              if(value == 0){
+                              if (value == 0) {
                                 print("hello2");
                               }
-                              if(value==1){
+                              if (value == 1) {
                                 Get.to(() => const AddProject());
                               }
-                              if(value==2){
+                              if (value == 2) {
                                 print("hello3");
                               }
                             },
