@@ -32,9 +32,8 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                         width: 40,
                         child: IconButton(
                           onPressed: () {
-
-                              // Get.to(() => const AddReport());
-
+                            // Get.to(() => const AddReport());
+                            Navigator.of(context).pop();
                           },
                           icon: const Icon(
                             Icons.arrow_back,
@@ -60,7 +59,7 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                 const SizedBox(height: 50),
 
                 SizedBox(
-                  height: MediaQuery.of(context).size.height-150,
+                  height: MediaQuery.of(context).size.height - 150,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: 15,
@@ -86,7 +85,7 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                                     width: 16,
                                   ),
                                   Container(
-                                      child:  Text(
+                                      child: Text(
                                     "Week-$index",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w700,
@@ -120,8 +119,9 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 15,),
-
+                            const SizedBox(
+                              height: 15,
+                            ),
                           ],
                         ),
                       );
