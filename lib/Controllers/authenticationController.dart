@@ -1,5 +1,6 @@
 import 'package:cehpoint_project_management/screens/Client/client_landing_screen.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/project_manager_landing_screen.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class AuthenticationController extends GetxController {
 
   loginProjectManager() {
     if (projectManagerSecretCode.text == "1234") {
+      projectManagerSecretCode.clear();
       Get.offAll(() => const ProjectManagerLandingScreen());
     }
   }
@@ -22,8 +24,11 @@ class AuthenticationController extends GetxController {
           .collection('users')
           .doc(clientUserName.text)
           .get();
+
       if (usersData.data()!['password'] == clientPassword.text) {
-        Get.offAll(() => const ClientLandingScreen());
+        // print(usersData.data()!['project-name']);
+        Get.offAll(() => ClientLandingScreen(
+            projectName: usersData.data()!['project-name']));
       } else {
         throw Exception('Invalid Credentials');
       }

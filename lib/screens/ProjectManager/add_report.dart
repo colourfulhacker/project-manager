@@ -13,8 +13,6 @@ class AddReport extends StatefulWidget {
   State<AddReport> createState() => _AddReportState();
 }
 
-void getUserDAta() {}
-
 class _AddReportState extends State<AddReport> {
   @override
   Widget build(BuildContext context) {

@@ -86,7 +86,7 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                                   ),
                                   Container(
                                       child: Text(
-                                    "Week-$index",
+                                    "Week-${index + 1}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 18),

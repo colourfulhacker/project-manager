@@ -76,6 +76,16 @@ class _AddEmployeeState extends State<AddProject> {
         'phone': phone,
         'username': username,
         'password': password,
+        'week-1': 'null',
+        'week-2': 'null',
+        'week-3': 'null',
+        'week-4': 'null',
+        'week-5': 'null',
+        'week-1-feedback': 'Not Available',
+        'week-2-feedback': 'Not Available',
+        'week-3-feedback': 'Not Available',
+        'week-4-feedback': 'Not Available',
+        'week-5-feedback': 'Not Available',
       });
       await FirebaseFirestore.instance.collection('users').doc(username).set({
         'password': password,
