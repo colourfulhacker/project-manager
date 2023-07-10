@@ -63,45 +63,43 @@ class _ReportDetailsState extends State<ReportDetails> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      Container(
-                        child: DropdownButtonFormField(
-                          dropdownColor: Colors.white,
-                          isExpanded: false,
-                          value: _value,
-                          items: const [
-                            DropdownMenuItem(
-                              value: "-1",
-                              child: Text(
-                                "Add week",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff7F7F7F)),
-                              ),
+                      DropdownButtonFormField(
+                        dropdownColor: Colors.white,
+                        isExpanded: false,
+                        value: _value,
+                        items: const [
+                          DropdownMenuItem(
+                            value: "-1",
+                            child: Text(
+                              "Add week",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff7F7F7F)),
                             ),
-                            DropdownMenuItem(
-                              value: "1",
-                              child: Text("Week 1"),
-                            ),
-                            DropdownMenuItem(
-                              value: "2",
-                              child: Text("Week 2"),
-                            ),
-                            DropdownMenuItem(
-                              value: "3",
-                              child: Text("Week 3"),
-                            ),
-                            DropdownMenuItem(
-                              value: "4",
-                              child: Text("Week 4"),
-                            ),
-                            DropdownMenuItem(
-                              value: "5",
-                              child: Text("Week 5"),
-                            ),
-                          ],
-                          onChanged: (v) {},
-                        ),
+                          ),
+                          DropdownMenuItem(
+                            value: "1",
+                            child: Text("Week 1"),
+                          ),
+                          DropdownMenuItem(
+                            value: "2",
+                            child: Text("Week 2"),
+                          ),
+                          DropdownMenuItem(
+                            value: "3",
+                            child: Text("Week 3"),
+                          ),
+                          DropdownMenuItem(
+                            value: "4",
+                            child: Text("Week 4"),
+                          ),
+                          DropdownMenuItem(
+                            value: "5",
+                            child: Text("Week 5"),
+                          ),
+                        ],
+                        onChanged: (v) {},
                       ),
                       const SizedBox(height: 30),
                       SizedBox(

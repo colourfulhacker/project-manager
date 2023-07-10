@@ -1,3 +1,4 @@
+import 'package:cehpoint_project_management/screens/Authentication/login_screen.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/add_project.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/add_report.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProjectManagerLandingScreen extends StatefulWidget {
-  const ProjectManagerLandingScreen({Key? key}) : super(key: key);
+  const ProjectManagerLandingScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ProjectManagerLandingScreen> createState() =>
@@ -62,27 +65,20 @@ class _ProjectManagerLandingScreenState
                               return [
                                 const PopupMenuItem<int>(
                                   value: 0,
-                                  child: Text("New Project"),
-                                ),
-                                const PopupMenuItem<int>(
-                                  value: 1,
                                   child: Text("Add Project"),
                                 ),
                                 const PopupMenuItem<int>(
-                                  value: 2,
+                                  value: 1,
                                   child: Text("Log Out"),
                                 ),
                               ];
                             },
                             onSelected: (value) {
                               if (value == 0) {
-                                print("hello2");
-                              }
-                              if (value == 1) {
                                 Get.to(() => const AddProject());
                               }
-                              if (value == 2) {
-                                print("hello3");
+                              if (value == 1) {
+                                Get.offAll(const LoginScreen());
                               }
                             },
                           ),

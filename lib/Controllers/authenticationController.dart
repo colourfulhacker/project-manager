@@ -1,7 +1,7 @@
 import 'package:cehpoint_project_management/screens/Client/client_landing_screen.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/project_manager_landing_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

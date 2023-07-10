@@ -228,20 +228,17 @@ class _AddReportState extends State<AddReport> {
               ),
 
               InkWell(
-                onTap: (){
+                onTap: () {
                   Get.to(() => const ReportDetails());
                 },
                 child: Container(
                   margin: const EdgeInsets.all(12),
-
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
-
                     color: const Color(0xffD4C00B),
                     borderRadius: BorderRadius.circular(10),
                   ),
-
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -267,7 +264,7 @@ class _AddReportState extends State<AddReport> {
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(12),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
@@ -289,9 +286,9 @@ class _AddReportState extends State<AddReport> {
                             ),
                             child: ExpansionTile(
                               initiallyExpanded: false,
-                              title: const Text(
-                                'Week-1',
-                                style: TextStyle(
+                              title: Text(
+                                'Week-${index + 1}',
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w700,
@@ -323,7 +320,8 @@ class _AddReportState extends State<AddReport> {
                                                 "My Project Name",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
-                                                  fontSize: 16,),
+                                                  fontSize: 16,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -361,7 +359,7 @@ class _AddReportState extends State<AddReport> {
 
                                 //View FeedBack
                                 InkWell(
-                                  onTap:(){
+                                  onTap: () {
                                     Get.to(() => const WeeklyFeedback());
                                   },
                                   child: Container(
@@ -380,9 +378,9 @@ class _AddReportState extends State<AddReport> {
                                       ),
                                       child: const Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Icon(
                                             Icons.feedback_outlined,

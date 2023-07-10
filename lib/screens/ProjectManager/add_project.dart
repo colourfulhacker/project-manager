@@ -1,3 +1,5 @@
+import 'package:cehpoint_project_management/Controllers/project_list.dart';
+import 'package:cehpoint_project_management/screens/ProjectManager/project_manager_landing_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,7 +51,8 @@ class _AddEmployeeState extends State<AddProject> {
             .showSnackBar(const SnackBar(content: Text('All Fields Required')));
         return;
       } else {
-        Navigator.of(context).pop();
+        ProjectNamesList.projectsNames.add(projectName);
+        Get.offAll(const ProjectManagerLandingScreen());
         clientNameController.clear();
         passwordController.clear();
         phoneController.clear();
@@ -76,6 +79,7 @@ class _AddEmployeeState extends State<AddProject> {
       });
       await FirebaseFirestore.instance.collection('users').doc(username).set({
         'password': password,
+        'project-name': projectName,
       });
     }
 

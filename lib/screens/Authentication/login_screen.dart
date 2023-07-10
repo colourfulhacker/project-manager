@@ -52,21 +52,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(width: 10),
-                      const SizedBox(
-                        height: 28,
-                        width: 28,
-                        child: Icon(
-                          Icons.manage_accounts,
-                          size: 28,
-                        ),
+                      const Icon(
+                        Icons.manage_accounts,
+                        size: 28,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'Log-in as Project Manager',
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Colors.black,
+                      Expanded(
+                        child: Text(
+                          'Log-in as Project Manager',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ],
