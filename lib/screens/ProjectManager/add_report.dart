@@ -330,7 +330,7 @@ class _AddReportState extends State<AddReport> {
                                         ),
                                       ),
                                       //UPDATE REPORT
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 40,
                                         child: Row(
                                           children: [
@@ -362,7 +362,9 @@ class _AddReportState extends State<AddReport> {
                                 //View FeedBack
                                 InkWell(
                                   onTap: () {
-                                    Get.to(() => const WeeklyFeedback());
+                                    Get.to(() => WeeklyFeedback(
+                                          projectName: widget.clientProjectName,
+                                        ));
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,

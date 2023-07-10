@@ -1,15 +1,21 @@
+import 'package:cehpoint_project_management/screens/ProjectManager/weekly_feedback.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FeedbackForm extends StatefulWidget {
-  const FeedbackForm({Key? key}) : super(key: key);
-
+  const FeedbackForm(
+      {Key? key, required this.weekNo, required this.clientProjectName})
+      : super(key: key);
+  final int weekNo;
+  final String clientProjectName;
   @override
   State<FeedbackForm> createState() => _FeedbackFormState();
 }
 
 class _FeedbackFormState extends State<FeedbackForm> {
+  TextEditingController feedbackController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +64,13 @@ class _FeedbackFormState extends State<FeedbackForm> {
                 const SizedBox(height: 140),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: const TextField(
-                    style: TextStyle(
+                  child: TextField(
+                    controller: feedbackController,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: Colors.black),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Give us your feedback",
                       hintStyle: TextStyle(
                         color: Color(0xff999999),
@@ -73,8 +80,16 @@ class _FeedbackFormState extends State<FeedbackForm> {
                 ),
                 const SizedBox(height: 240),
                 InkWell(
-                  onTap: () {
-                    // Get.to(() => const WeeklyFeedback());
+                  onTap: () async {
+                    await FirebaseFirestore.instance
+                        .collection('projects')
+                        .doc(widget.clientProjectName)
+                        .update({
+                      'week-${widget.weekNo}-feedback': feedbackController.text
+                    });
+                    Get.to(() => WeeklyFeedback(
+                          projectName: widget.clientProjectName,
+                        ));
                   },
                   child: Container(
                     alignment: Alignment.center,

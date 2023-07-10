@@ -139,7 +139,9 @@ class _ReportDetailsState extends State<ReportDetails> {
                               .collection('projects')
                               .doc(widget.clientProjectName)
                               .update({'week-$weekNo': link});
-                          Get.to(() => const WeeklyFeedback());
+                          Get.to(() => WeeklyFeedback(
+                                projectName: widget.clientProjectName,
+                              ));
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
