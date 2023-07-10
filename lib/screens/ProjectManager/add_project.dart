@@ -51,7 +51,7 @@ class _AddEmployeeState extends State<AddProject> {
             .showSnackBar(const SnackBar(content: Text('All Fields Required')));
         return;
       } else {
-        ProjectNamesList.projectsNames.add(projectName);
+        ProjectNamesList().addName(projectName);
         Get.offAll(const ProjectManagerLandingScreen());
         clientNameController.clear();
         passwordController.clear();
