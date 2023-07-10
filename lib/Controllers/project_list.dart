@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProjectNamesList {
-  static var projectsNames = [];
-  Future<void> addName(String name) async {
-    List<String> temp = [...projectsNames];
-    temp.add(name);
-    projectsNames = [...temp];
+  static var projectNames = [];
+  static Future<void> addName(String name) async {
     await FirebaseFirestore.instance
         .collection('project-names')
         .doc('list')
@@ -14,14 +11,15 @@ class ProjectNamesList {
     });
   }
 
-  Future<List<String>> getList() async {
+  static Future<void> getList() async {
     final namesData = await FirebaseFirestore.instance
         .collection('project-names')
         .doc('list')
         .get();
-    List<String> names = namesData.data()!['names'];
-    projectsNames = [...names];
-    print(names);
-    return names;
+    final names = namesData.data()!['names'];
+
+    projectNames = [...names];
+    // return names;
+    print(projectNames);
   }
 }

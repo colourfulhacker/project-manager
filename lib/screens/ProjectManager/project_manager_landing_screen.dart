@@ -21,6 +21,12 @@ class ProjectManagerLandingScreen extends StatefulWidget {
 class _ProjectManagerLandingScreenState
     extends State<ProjectManagerLandingScreen> with TickerProviderStateMixin {
   @override
+  void initState() {
+    ProjectNamesList.getList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
 
@@ -58,39 +64,39 @@ class _ProjectManagerLandingScreenState
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: Row(
                         children: [
-                          Image.asset(
-                            "assets/Vector.png",
-                            height: 20,
-                            width: 40,
+                          Expanded(
+                            child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    ProjectNamesList.getList();
+                                    print('done');
+                                  });
+                                },
+                                icon: const Icon(Icons.refresh)),
                           ),
-                          PopupMenuButton(
-                            itemBuilder: (context) {
-                              return [
-                                const PopupMenuItem<int>(
-                                  value: 0,
-                                  child: Text("Add Project"),
-                                ),
-                                const PopupMenuItem<int>(
-                                  value: 1,
-                                  child: Text("Log Out"),
-                                ),
-                                const PopupMenuItem<int>(
-                                  value: 2,
-                                  child: Text("refresh"),
-                                ),
-                              ];
-                            },
-                            onSelected: (value) {
-                              if (value == 0) {
-                                Get.to(() => const AddProject());
-                              }
-                              if (value == 1) {
-                                Get.offAll(const LoginScreen());
-                              }
-                              if (value == 2) {
-                                setState(() {});
-                              }
-                            },
+                          Expanded(
+                            child: PopupMenuButton(
+                              itemBuilder: (context) {
+                                return [
+                                  const PopupMenuItem<int>(
+                                    value: 0,
+                                    child: Text("Add Project"),
+                                  ),
+                                  const PopupMenuItem<int>(
+                                    value: 1,
+                                    child: Text("Log Out"),
+                                  ),
+                                ];
+                              },
+                              onSelected: (value) {
+                                if (value == 0) {
+                                  Get.to(() => const AddProject());
+                                }
+                                if (value == 1) {
+                                  Get.offAll(const LoginScreen());
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -167,195 +173,160 @@ class _ProjectManagerLandingScreenState
                 ],
               ),
 
-              FutureBuilder(
-                  future: ProjectNamesList().getList(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(
-                        child: Text('No Projects'),
-                      );
-                    }
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.67,
-                      child: TabBarView(
-                        controller: tabController,
-                        children: [
-                          ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: ProjectNamesList.projectsNames.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Color(0xffCCCCCC),
-                                    ),
-                                  ),
-                                ),
-                                width: MediaQuery.of(context).size.width,
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width -
-                                          120,
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            height: 35,
-                                            width: 35,
-                                            child: Icon(
-                                              Icons.article_outlined,
-                                              color: Color(0xff818181),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                170,
-                                            child: Text(
-                                              ProjectNamesList
-                                                  .projectsNames[index],
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 100,
-                                      child: ElevatedButton(
-                                        onPressed: () {},
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              const Color(0xffD4C00B),
-                                        ),
-                                        child: Text(
-                                          'INVITE',
-                                          style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.67,
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: ProjectNamesList.projectNames.length,
+                      itemBuilder: (context, index) {
+                        print(ProjectNamesList.projectNames);
+                        return Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Color(0xffCCCCCC),
+                              ),
+                            ),
                           ),
-                          //TASK
-
-                          ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: ProjectNamesList.projectsNames.length,
-                            itemBuilder: (context, index) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                return const Center(
-                                  child: Text('No projects'),
-                                );
-                              }
-                              return Container(
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Color(0xffCCCCCC),
-                                    ),
-                                  ),
-                                ),
-                                width: MediaQuery.of(context).size.width,
-                                padding: const EdgeInsets.all(10),
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width - 120,
+                                padding: const EdgeInsets.only(right: 10),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      width: MediaQuery.of(context).size.width -
-                                          140,
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            height: 35,
-                                            width: 35,
-                                            child: Icon(
-                                              Icons.article_outlined,
-                                              color: Color(0xff818181),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width -
-                                                190,
-                                            child: Text(
-                                              ProjectNamesList
-                                                  .projectsNames[index],
-                                              overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                    const SizedBox(
+                                      height: 35,
+                                      width: 35,
+                                      child: Icon(
+                                        Icons.article_outlined,
+                                        color: Color(0xff818181),
                                       ),
                                     ),
+                                    const SizedBox(width: 5),
                                     SizedBox(
-                                      width: 120,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Get.to(() => const AddReport());
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              const Color(0xffD4C00B),
-                                        ),
-                                        child: Text(
-                                          'ADD REPORT',
-                                          style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                          ),
+                                      width: MediaQuery.of(context).size.width -
+                                          170,
+                                      child: Text(
+                                        ProjectNamesList.projectNames[index],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16.0,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    );
-                  }),
+                              ),
+                              SizedBox(
+                                width: 100,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xffD4C00B),
+                                  ),
+                                  child: Text(
+                                    'INVITE',
+                                    style: GoogleFonts.inter(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    //TASK
+
+                    ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: ProjectNamesList.projectNames.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Color(0xffCCCCCC),
+                              ),
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width - 140,
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(
+                                      height: 35,
+                                      width: 35,
+                                      child: Icon(
+                                        Icons.article_outlined,
+                                        color: Color(0xff818181),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width -
+                                          190,
+                                      child: Text(
+                                        ProjectNamesList.projectNames[index],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Get.to(() => AddReport(
+                                          clientProjectName: ProjectNamesList
+                                              .projectNames[index],
+                                        ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xffD4C00B),
+                                  ),
+                                  child: Text(
+                                    'ADD REPORT',
+                                    style: GoogleFonts.inter(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

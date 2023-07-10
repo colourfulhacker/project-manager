@@ -1,17 +1,28 @@
 import 'package:cehpoint_project_management/screens/ProjectManager/weekly_feedback.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ReportDetails extends StatefulWidget {
-  const ReportDetails({Key? key}) : super(key: key);
-
+  const ReportDetails({Key? key, required this.clientProjectName})
+      : super(key: key);
+  final String clientProjectName;
   @override
   State<ReportDetails> createState() => _ReportDetailsState();
 }
 
 class _ReportDetailsState extends State<ReportDetails> {
   final _value = "-1";
+  TextEditingController reportLinkController = TextEditingController();
+  String? link = '';
+  String? weekNo = '';
+  @override
+  void dispose() {
+    reportLinkController.clear();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,17 +110,21 @@ class _ReportDetailsState extends State<ReportDetails> {
                             child: Text("Week 5"),
                           ),
                         ],
-                        onChanged: (v) {},
+                        onChanged: (v) {
+                          weekNo = v;
+                        },
                       ),
                       const SizedBox(height: 30),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const TextField(
-                          style: TextStyle(
+                        child: TextField(
+                          onChanged: (value) => link = value,
+                          controller: reportLinkController,
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                               color: Color(0xff7F7F7F)),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: "Add Report link",
                             hintStyle: TextStyle(
                               color: Color(0xff999999),
@@ -119,7 +134,11 @@ class _ReportDetailsState extends State<ReportDetails> {
                       ),
                       const SizedBox(height: 300),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          await FirebaseFirestore.instance
+                              .collection('projects')
+                              .doc(widget.clientProjectName)
+                              .update({'week-$weekNo': link});
                           Get.to(() => const WeeklyFeedback());
                         },
                         child: Container(

@@ -62,7 +62,7 @@ class _WeeklyFeedbackState extends State<WeeklyFeedback> {
                   height: MediaQuery.of(context).size.height - 150,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 15,
+                    itemCount: 5,
                     itemBuilder: (context, index) {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
