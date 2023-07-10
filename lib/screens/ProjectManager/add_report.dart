@@ -6,11 +6,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddReport extends StatefulWidget {
-  const AddReport({Key? key}) : super(key: key);
-
+  const AddReport({Key? key, required this.clientProjectName})
+      : super(key: key);
+  final String clientProjectName;
   @override
   State<AddReport> createState() => _AddReportState();
 }
+
+void getUserDAta() {}
 
 class _AddReportState extends State<AddReport> {
   @override
@@ -79,9 +82,9 @@ class _AddReportState extends State<AddReport> {
                         ),
                       ),
                     ),
-                    const Text(
-                      "My Project",
-                      style: TextStyle(
+                    Text(
+                      widget.clientProjectName,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
@@ -229,7 +232,8 @@ class _AddReportState extends State<AddReport> {
 
               InkWell(
                 onTap: () {
-                  Get.to(() => const ReportDetails());
+                  Get.to(() => ReportDetails(
+                      clientProjectName: widget.clientProjectName));
                 },
                 child: Container(
                   margin: const EdgeInsets.all(12),
@@ -300,25 +304,25 @@ class _AddReportState extends State<AddReport> {
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
-                                  child: const Column(
+                                  child: Column(
                                     children: [
                                       // MY Project
                                       SizedBox(
                                         height: 40,
                                         child: Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.article_outlined,
                                               size: 30,
                                               color: Color(0xff999999),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 13,
                                             ),
                                             SizedBox(
                                               child: Text(
-                                                "My Project Name",
-                                                style: TextStyle(
+                                                widget.clientProjectName,
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 16,
                                                 ),
