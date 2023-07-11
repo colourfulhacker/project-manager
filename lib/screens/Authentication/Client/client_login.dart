@@ -102,7 +102,7 @@ class _ClientLoginState extends State<ClientLogin> {
                               return null;
                             },
                             controller: authenticationController.clientPassword,
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             obscureText: true,
                             style: const TextStyle(
                               color: Colors.black,

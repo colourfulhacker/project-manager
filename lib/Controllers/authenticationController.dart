@@ -1,3 +1,4 @@
+import 'package:cehpoint_project_management/Controllers/project_list.dart';
 import 'package:cehpoint_project_management/screens/Client/client_landing_screen.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/project_manager_landing_screen.dart';
 
@@ -25,11 +26,23 @@ class AuthenticationController extends GetxController {
           .doc(clientUserName.text)
           .get();
 
-      if (usersData.data()!['password'] == clientPassword.text) {
+      if (usersData.data()!['password'] == clientPassword.text &&
+          ProjectNamesList.projectNames
+              .contains(usersData.data()!['project-name'])) {
         // print(usersData.data()!['project-name']);
         Get.offAll(() => ClientLandingScreen(
             projectName: usersData.data()!['project-name']));
       } else {
+        if (usersData.data()!['password'] == clientPassword.text) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(clientUserName.text)
+              .delete()
+              .then(
+                (doc) => print("Document deleted"),
+                onError: (e) => print("Error updating document $e"),
+              );
+        }
         throw Exception('Invalid Credentials');
       }
     } catch (error) {

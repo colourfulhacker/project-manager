@@ -2,7 +2,8 @@
     "cmake.sourceDirectory": "C:/Users/manas/src/projects/cehpoint_app/windows/flutter",
     "cSpell.words": [
         "cehpoint",
-        "Getx"
+        "Getx",
+        "vsync"
     ],
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#ff6433",

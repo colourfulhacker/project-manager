@@ -2,6 +2,7 @@ import 'package:cehpoint_project_management/Controllers/project_list.dart';
 import 'package:cehpoint_project_management/screens/Authentication/login_screen.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/add_project.dart';
 import 'package:cehpoint_project_management/screens/ProjectManager/add_report.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,16 +22,48 @@ class ProjectManagerLandingScreen extends StatefulWidget {
 class _ProjectManagerLandingScreenState
     extends State<ProjectManagerLandingScreen> with TickerProviderStateMixin {
   @override
-  void initState() {
-    setState(() {
-      ProjectNamesList.getList();
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 2, vsync: this);
+    showAlertDialog(BuildContext context, int index) {
+      // set up the buttons
+      Widget cancelButton = TextButton(
+        child: const Text("Cancel"),
+        onPressed: () {
+          Get.back();
+        },
+      );
+      Widget continueButton = TextButton(
+        child: const Text("Continue"),
+        onPressed: () async {
+          await FirebaseFirestore.instance
+              .collection('projects')
+              .doc(ProjectNamesList.projectNames[index])
+              .delete()
+              .then(
+                (doc) => print("Document deleted"),
+                onError: (e) => print("Error updating document $e"),
+              );
+          ProjectNamesList.removeName(ProjectNamesList.projectNames[index]);
+          Get.back();
+        },
+      );
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: const Text("AlertDialog"),
+        content: const Text("Are you sure you want to Delete?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -182,12 +215,7 @@ class _ProjectManagerLandingScreenState
                   children: [
                     if (ProjectNamesList.projectNames.isEmpty)
                       const Center(
-                        child: Text('No Projects'),
-                      ),
-
-                    if (ProjectNamesList.projectNames.isEmpty)
-                      const Center(
-                        child: Text('No Projects'),
+                        child: Text('No Projects(Try Refreshing)'),
                       ),
 
                     if (ProjectNamesList.projectNames.isNotEmpty)
@@ -246,7 +274,15 @@ class _ProjectManagerLandingScreenState
                                 SizedBox(
                                   width: 100,
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      showAlertDialog(context, index);
+                                      ScaffoldMessenger.of(context)
+                                          .clearSnackBars();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text('Project Deleted')));
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: const Color(0xffD4C00B),
                                     ),

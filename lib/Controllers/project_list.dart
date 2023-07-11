@@ -11,6 +11,15 @@ class ProjectNamesList {
     });
   }
 
+  static Future<void> removeName(String name) async {
+    await FirebaseFirestore.instance
+        .collection('project-names')
+        .doc('list')
+        .update({
+      'names': FieldValue.arrayRemove([name])
+    });
+  }
+
   static Future<void> getList() async {
     final namesData = await FirebaseFirestore.instance
         .collection('project-names')
