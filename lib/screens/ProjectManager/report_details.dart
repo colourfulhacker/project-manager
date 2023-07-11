@@ -135,6 +135,15 @@ class _ReportDetailsState extends State<ReportDetails> {
                       const SizedBox(height: 300),
                       InkWell(
                         onTap: () async {
+                          if (!reportLinkController.text.contains('https://')) {
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Invalid link')));
+                            return;
+                          }
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Report Saved')));
                           await FirebaseFirestore.instance
                               .collection('projects')
                               .doc(widget.clientProjectName)

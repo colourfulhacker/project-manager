@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AddProject extends StatefulWidget {
   const AddProject({Key? key}) : super(key: key);
@@ -26,6 +28,11 @@ var endDate = '';
 var phone = '';
 var username = '';
 var password = '';
+Future<void> _launchUrl(_url) async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+  }
+}
 
 class _AddEmployeeState extends State<AddProject> {
   @override
@@ -53,6 +60,18 @@ class _AddEmployeeState extends State<AddProject> {
       } else {
         ProjectNamesList.addName(projectName);
         Get.offAll(const ProjectManagerLandingScreen());
+
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Project Saved')));
+        FocusManager.instance.primaryFocus?.unfocus();
+
+        final Uri whatsappUrl = Uri.parse(
+            "whatsapp://send?phone=+91 ${phoneController.text}"
+            "&text=${Uri.encodeComponent('Hi sir please login your account to check project progress :-\nUserId- ${usernameController.text}\nPassword- ${passwordController.text}')}");
+
+        _launchUrl(whatsappUrl);
+
         clientNameController.clear();
         passwordController.clear();
         phoneController.clear();
@@ -60,9 +79,6 @@ class _AddEmployeeState extends State<AddProject> {
         startDateController.clear();
         endDateController.clear();
         projectNameController.clear();
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Project Saved')));
       }
 
       await FirebaseFirestore.instance
@@ -90,6 +106,25 @@ class _AddEmployeeState extends State<AddProject> {
       await FirebaseFirestore.instance.collection('users').doc(username).set({
         'password': password,
         'project-name': projectName,
+      });
+    }
+
+    void datePicker(TextEditingController controller) {
+      showDatePicker(
+        //*returns future type data
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2020),
+        lastDate: DateTime.now(),
+      ).then((date) {
+        //*programs do not stop and keep executing but when date is entered this 'then' function is called by flutter and picked date argument is passed by flutter
+        if (date == null) {
+          return;
+        }
+        print(date);
+        setState(() {
+          controller.text = DateFormat.yMd().format(date);
+        });
       });
     }
 
@@ -124,7 +159,7 @@ class _AddEmployeeState extends State<AddProject> {
                       child: Text(
                         "ADD PROJECT",
                         textAlign: TextAlign.center,
-                        textDirection: TextDirection.ltr,
+                        // textDirection: TextDirection.LTR,
                         style: GoogleFonts.inter(
                           color: Colors.black,
                           fontSize: 18,
@@ -249,6 +284,8 @@ class _AddEmployeeState extends State<AddProject> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
                                   child: TextField(
+                                    onTap: () =>
+                                        datePicker(startDateController),
                                     controller: startDateController,
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -286,6 +323,7 @@ class _AddEmployeeState extends State<AddProject> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
                                   child: TextField(
+                                    onTap: () => datePicker(endDateController),
                                     controller: endDateController,
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -324,6 +362,7 @@ class _AddEmployeeState extends State<AddProject> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
                                     child: TextField(
+                                      keyboardType: TextInputType.number,
                                       controller: phoneController,
                                       style: const TextStyle(
                                         color: Colors.black,
@@ -366,7 +405,7 @@ class _AddEmployeeState extends State<AddProject> {
                                       color: Colors.black,
                                     ),
                                     decoration: const InputDecoration(
-                                      hintText: "EMPLOYEE USER NAME",
+                                      hintText: "USER NAME",
                                       hintStyle: TextStyle(
                                         color: Color(0xff999999),
                                       ),

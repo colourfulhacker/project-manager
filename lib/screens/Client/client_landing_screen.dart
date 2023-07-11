@@ -51,44 +51,11 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Image.asset(
-                            "assets/logo sec 17.png",
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 0.15,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.50,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  "assets/Vector.png",
-                                  height: 20,
-                                  width: 40,
-                                ),
-                                const Icon(
-                                  Icons.call,
-                                  color: Colors.blue,
-                                ),
-                                const Text(
-                                  "CALL US",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.chat,
-                                  color: Colors.green,
-                                ),
-                                const Text(
-                                  "HELP",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
+                          Expanded(
+                            child: Image.asset(
+                              "assets/logo sec 17.png",
+                              height: 50,
+                              width: MediaQuery.of(context).size.width * 0.15,
                             ),
                           ),
                         ],
@@ -205,9 +172,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.8,
-                                      child: const Text(
-                                        "+91 7039494588",
-                                        style: TextStyle(
+                                      child: Text(
+                                        snapshot.data!['phone'],
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),

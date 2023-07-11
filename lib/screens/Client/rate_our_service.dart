@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,14 @@ class RateOurService extends StatefulWidget {
 }
 
 class _RateOurServiceState extends State<RateOurService> {
+  TextEditingController opinionController = TextEditingController();
+  double? stars;
+  @override
+  void dispose() {
+    opinionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +70,7 @@ class _RateOurServiceState extends State<RateOurService> {
                     width: MediaQuery.of(context).size.width - 20,
                     child: Center(
                       child: RatingBar.builder(
-                        initialRating: 3,
+                        initialRating: 5,
                         minRating: 1,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
@@ -74,18 +83,20 @@ class _RateOurServiceState extends State<RateOurService> {
                         ),
                         onRatingUpdate: (rating) {
                           print(rating);
+                          stars = rating;
                         },
                       ),
                     )),
                 const SizedBox(height: 150),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: const TextField(
-                    style: TextStyle(
+                  child: TextField(
+                    controller: opinionController,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                         color: Colors.black),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Describe your opinion",
                       hintStyle: TextStyle(
                         color: Color(0xff999999),
@@ -95,8 +106,13 @@ class _RateOurServiceState extends State<RateOurService> {
                 ),
                 const SizedBox(height: 150),
                 InkWell(
-                  onTap: () {
-                    // Get.to(() => const WeeklyFeedback());
+                  onTap: () async {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Review Saved')));
+                    await FirebaseFirestore.instance.collection('Reviews').add(
+                        {'rating': stars, 'opinion': opinionController.text});
+                    Get.back();
                   },
                   child: Container(
                     alignment: Alignment.center,

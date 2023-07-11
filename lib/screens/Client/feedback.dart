@@ -17,6 +17,12 @@ class FeedbackForm extends StatefulWidget {
 class _FeedbackFormState extends State<FeedbackForm> {
   TextEditingController feedbackController = TextEditingController();
   @override
+  void dispose() {
+    feedbackController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -81,6 +87,15 @@ class _FeedbackFormState extends State<FeedbackForm> {
                 const SizedBox(height: 240),
                 InkWell(
                   onTap: () async {
+                    if (feedbackController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Enter feedback')));
+                      return;
+                    }
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Feedback Saved')));
                     await FirebaseFirestore.instance
                         .collection('projects')
                         .doc(widget.clientProjectName)
