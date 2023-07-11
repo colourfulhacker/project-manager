@@ -251,7 +251,7 @@ class _ProjectManagerLandingScreenState
                                       backgroundColor: const Color(0xffD4C00B),
                                     ),
                                     child: Text(
-                                      'INVITE',
+                                      'DELETE',
                                       style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
