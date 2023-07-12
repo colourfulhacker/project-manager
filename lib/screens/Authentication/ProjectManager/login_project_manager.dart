@@ -15,7 +15,7 @@ class _LoginProjectManagerState extends State<LoginProjectManager> {
   AuthenticationController authenticationController = Get.find();
 
   final secretKey = GlobalKey<FormState>();
-
+  var hidePass = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,14 +74,20 @@ class _LoginProjectManagerState extends State<LoginProjectManager> {
                       controller:
                           authenticationController.projectManagerSecretCode,
                       keyboardType: TextInputType.number,
-                      obscureText: true,
+                      obscureText: hidePass,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 10,
                       ),
-                      decoration: const InputDecoration(
-                        suffixIcon: Icon(Icons.remove_red_eye),
+                      decoration: InputDecoration(
+                        suffix: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                hidePass = !hidePass;
+                              });
+                            },
+                            icon: Icon(Icons.remove_red_eye)),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 1,
@@ -107,7 +113,7 @@ class _LoginProjectManagerState extends State<LoginProjectManager> {
                 InkWell(
                   onTap: () {
                     secretKey.currentState!.validate();
-                    if(secretKey.currentState!.validate()){
+                    if (secretKey.currentState!.validate()) {
                       authenticationController.loginProjectManager();
                     }
                   },

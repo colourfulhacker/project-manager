@@ -33,7 +33,9 @@ class AuthenticationController extends GetxController {
         Get.offAll(() => ClientLandingScreen(
             projectName: usersData.data()!['project-name']));
       } else {
-        if (usersData.data()!['password'] == clientPassword.text) {
+        if (usersData.data()!['password'] == clientPassword.text &&
+            !ProjectNamesList.projectNames
+                .contains(usersData.data()!['project-name'])) {
           await FirebaseFirestore.instance
               .collection('users')
               .doc(clientUserName.text)

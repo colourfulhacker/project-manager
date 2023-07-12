@@ -15,7 +15,7 @@ class _ClientLoginState extends State<ClientLogin> {
   AuthenticationController authenticationController = Get.find();
 
   final secretKey = GlobalKey<FormState>();
-
+  var hidePass = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,16 +103,19 @@ class _ClientLoginState extends State<ClientLogin> {
                             },
                             controller: authenticationController.clientPassword,
                             keyboardType: TextInputType.text,
-                            obscureText: true,
+                            obscureText: hidePass,
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
-                            decoration: const InputDecoration(
-                              suffixIcon: Icon(
-                                Icons.remove_red_eye,
-                              ),
-                              suffixIconColor: Colors.red,
+                            decoration: InputDecoration(
+                              suffix: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      hidePass = !hidePass;
+                                    });
+                                  },
+                                  icon: Icon(Icons.remove_red_eye)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1,

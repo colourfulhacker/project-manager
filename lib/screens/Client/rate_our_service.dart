@@ -110,8 +110,10 @@ class _RateOurServiceState extends State<RateOurService> {
                     ScaffoldMessenger.of(context).clearSnackBars();
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Review Saved')));
-                    await FirebaseFirestore.instance.collection('Reviews').add(
-                        {'rating': stars, 'opinion': opinionController.text});
+                    await FirebaseFirestore.instance.collection('Reviews').add({
+                      'rating': stars ?? 5,
+                      'opinion': opinionController.text
+                    });
                     Get.back();
                   },
                   child: Container(

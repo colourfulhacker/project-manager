@@ -118,9 +118,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
-                                    child: const Text(
-                                      "Jit Banerjee",
-                                      style: TextStyle(
+                                    child: Text(
+                                      snapshot.data!['client-name'],
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ),
@@ -145,9 +145,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                                   SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
-                                    child: const Text(
-                                      "CEHPOINT",
-                                      style: TextStyle(
+                                    child: Text(
+                                      snapshot.data!['company-name'],
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ),
@@ -252,97 +252,61 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                             ? snapshot.data!['week-${index + 1}']
                             : 'null';
                         final Uri _url = Uri.parse(urlBool);
-                        return Column(
-                          children: [
-                            Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              margin: EdgeInsets.zero,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
-                                  color: Color(0xffD4C00B),
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(12),
-                                    topLeft: Radius.circular(12),
-                                  ),
+                        if (isPresent) {
+                          return Column(
+                            children: [
+                              Card(
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: ExpansionTile(
-                                  initiallyExpanded: false,
-                                  title: Text(
-                                    'Week-${index + 1}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w700,
+                                clipBehavior: Clip.antiAlias,
+                                margin: EdgeInsets.zero,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xffD4C00B),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(12),
+                                      topLeft: Radius.circular(12),
                                     ),
                                   ),
-                                  children: [
-                                    //Project name and feedback
-                                    Container(
-                                      color: Colors.white,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Column(
-                                        children: [
-                                          // MY Project
-                                          SizedBox(
-                                            height: 40,
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.article_outlined,
-                                                  size: 30,
-                                                  color: Color(0xff999999),
-                                                ),
-                                                const SizedBox(
-                                                  width: 13,
-                                                ),
-                                                SizedBox(
-                                                  child: Text(
-                                                    snapshot
-                                                        .data!['project-name'],
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          //UPDATE REPORT
-                                          InkWell(
-                                            onTap: isPresent
-                                                ? () {
-                                                    _launchUrl(_url);
-                                                  }
-                                                : () {},
-                                            child: SizedBox(
+                                  child: ExpansionTile(
+                                    initiallyExpanded: false,
+                                    title: Text(
+                                      'Week-${index + 1}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    children: [
+                                      //Project name and feedback
+                                      Container(
+                                        color: Colors.white,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Column(
+                                          children: [
+                                            // MY Project
+                                            SizedBox(
                                               height: 40,
                                               child: Row(
                                                 children: [
-                                                  Icon(
-                                                    Icons.link,
+                                                  const Icon(
+                                                    Icons.article_outlined,
                                                     size: 30,
-                                                    color: isPresent
-                                                        ? Colors.blue
-                                                        : Colors.black,
+                                                    color: Color(0xff999999),
                                                   ),
                                                   const SizedBox(
                                                     width: 13,
                                                   ),
                                                   SizedBox(
                                                     child: Text(
-                                                      "View Report",
-                                                      style: TextStyle(
-                                                        color: isPresent
-                                                            ? Colors.blue
-                                                            : Colors.black,
+                                                      snapshot.data![
+                                                          'project-name'],
+                                                      style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w700,
                                                         fontSize: 16,
@@ -352,71 +316,114 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            //UPDATE REPORT
+                                            InkWell(
+                                              onTap: isPresent
+                                                  ? () {
+                                                      _launchUrl(_url);
+                                                    }
+                                                  : () {},
+                                              child: SizedBox(
+                                                height: 40,
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.link,
+                                                      size: 30,
+                                                      color: isPresent
+                                                          ? Colors.blue
+                                                          : Colors.black,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 13,
+                                                    ),
+                                                    SizedBox(
+                                                      child: Text(
+                                                        "View Report",
+                                                        style: TextStyle(
+                                                          color: isPresent
+                                                              ? Colors.blue
+                                                              : Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(color: Colors.white, height: 18),
+                                      Container(
+                                          color: Colors.white, height: 18),
 
-                                    //View FeedBack
-                                    InkWell(
-                                      onTap: () {
-                                        Get.to(() => FeedbackForm(
-                                              weekNo: index + 1,
-                                              clientProjectName: snapshot
-                                                  .data!['project-name'],
-                                            ));
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 50,
-                                        color: Colors.white,
+                                      //View FeedBack
+                                      InkWell(
+                                        onTap: () {
+                                          Get.to(() => FeedbackForm(
+                                                weekNo: index + 1,
+                                                clientProjectName: snapshot
+                                                    .data!['project-name'],
+                                              ));
+                                        },
                                         child: Container(
                                           width:
                                               MediaQuery.of(context).size.width,
                                           height: 50,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xff4A4A4A),
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(12),
-                                              bottomRight: Radius.circular(12),
+                                          color: Colors.white,
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 50,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xff4A4A4A),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(12),
+                                                bottomRight:
+                                                    Radius.circular(12),
+                                              ),
                                             ),
-                                          ),
-                                          child: const Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.message_outlined,
-                                                size: 23,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 13,
-                                              ),
-                                              Text(
-                                                'Submit Feedback',
-                                                style: TextStyle(
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.message_outlined,
+                                                  size: 23,
                                                   color: Colors.white,
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w700,
                                                 ),
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                  width: 13,
+                                                ),
+                                                Text(
+                                                  'Submit Feedback',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17.0,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                          ],
-                        );
+                              const SizedBox(height: 10),
+                            ],
+                          );
+                        } else {
+                          return null;
+                        }
                       },
                     ),
                   ),
