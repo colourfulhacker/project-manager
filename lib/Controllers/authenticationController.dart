@@ -21,11 +21,12 @@ class AuthenticationController extends GetxController {
 
   loginClient(BuildContext context) async {
     try {
+      print(ProjectNamesList.projectNames);
       final usersData = await FirebaseFirestore.instance
           .collection('users')
           .doc(clientUserName.text)
           .get();
-
+      print(ProjectNamesList.projectNames);
       if (usersData.data()!['password'] == clientPassword.text &&
           ProjectNamesList.projectNames
               .contains(usersData.data()!['project-name'])) {

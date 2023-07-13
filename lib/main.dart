@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cehpoint_project_management/Controllers/authenticationController.dart';
+import 'package:cehpoint_project_management/Controllers/project_list.dart';
 import 'package:cehpoint_project_management/screens/Authentication/login_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  await ProjectNamesList.getList();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp());

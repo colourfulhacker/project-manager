@@ -69,6 +69,9 @@ class _AddReportState extends State<AddReport> {
                           ),
                         ),
                         const SizedBox(width: 40),
+                        IconButton(
+                            onPressed: () => setState(() {}),
+                            icon: const Icon(Icons.refresh))
                       ],
                     ),
                   ),
