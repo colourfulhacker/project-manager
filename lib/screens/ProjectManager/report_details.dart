@@ -1,22 +1,22 @@
-import 'package:cehpoint_project_management/screens/ProjectManager/weekly_feedback.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ReportDetails extends StatefulWidget {
-  const ReportDetails({Key? key, required this.clientProjectName})
+  const ReportDetails({Key? key, required this.clientProjectName, this.val})
       : super(key: key);
   final String clientProjectName;
+  final int? val;
   @override
   State<ReportDetails> createState() => _ReportDetailsState();
 }
 
 class _ReportDetailsState extends State<ReportDetails> {
-  final _value = "-1";
   TextEditingController reportLinkController = TextEditingController();
   String? link = '';
   String? weekNo = '';
+
   @override
   void dispose() {
     reportLinkController.clear();
@@ -25,6 +25,8 @@ class _ReportDetailsState extends State<ReportDetails> {
 
   @override
   Widget build(BuildContext context) {
+    // final value = '-1';
+    final value = widget.val == null ? "-1" : '${widget.val}';
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,7 +79,7 @@ class _ReportDetailsState extends State<ReportDetails> {
                       DropdownButtonFormField(
                         dropdownColor: Colors.white,
                         isExpanded: false,
-                        value: _value,
+                        value: value,
                         items: const [
                           DropdownMenuItem(
                             value: "-1",
@@ -148,9 +150,7 @@ class _ReportDetailsState extends State<ReportDetails> {
                               .collection('projects')
                               .doc(widget.clientProjectName)
                               .update({'week-$weekNo': link});
-                          Get.to(() => WeeklyFeedback(
-                                projectName: widget.clientProjectName,
-                              ));
+                          Get.back();
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,

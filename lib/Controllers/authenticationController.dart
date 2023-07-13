@@ -33,6 +33,7 @@ class AuthenticationController extends GetxController {
         Get.offAll(() => ClientLandingScreen(
             projectName: usersData.data()!['project-name']));
       } else {
+        print(ProjectNamesList.projectNames);
         if (usersData.data()!['password'] == clientPassword.text &&
             !ProjectNamesList.projectNames
                 .contains(usersData.data()!['project-name'])) {

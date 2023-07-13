@@ -49,7 +49,6 @@ class _ProjectManagerLandingScreenState
       );
       // set up the AlertDialog
       AlertDialog alert = AlertDialog(
-        title: const Text("AlertDialog"),
         content: const Text("Are you sure you want to Delete?"),
         actions: [
           cancelButton,
@@ -81,19 +80,6 @@ class _ProjectManagerLandingScreenState
                       "assets/logo sec 17.png",
                       height: 50,
                       width: MediaQuery.of(context).size.width * 0.15,
-                    ),
-                    SizedBox(
-                      height: 30,
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      child: const TextField(
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Search Project",
-                          icon: Icon(Icons.search),
-                        ),
-                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
