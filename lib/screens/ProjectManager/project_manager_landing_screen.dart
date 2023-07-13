@@ -51,6 +51,7 @@ class _ProjectManagerLandingScreenState
                 onError: (e) => print("Error updating document $e"),
               );
           ProjectNamesList.removeName(ProjectNamesList.projectNames[index]);
+
           Get.back();
         },
       );

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class ReportDetails extends StatefulWidget {
@@ -48,7 +48,7 @@ class _ReportDetailsState extends State<ReportDetails> {
                         width: 40,
                         child: IconButton(
                           onPressed: () {
-                            Get.back();
+                            Navigator.pop(context);
                           },
                           icon: const Icon(
                             Icons.arrow_back,
@@ -143,6 +143,7 @@ class _ReportDetailsState extends State<ReportDetails> {
                                 const SnackBar(content: Text('Invalid link')));
                             return;
                           }
+                          Navigator.pop(context);
                           ScaffoldMessenger.of(context).clearSnackBars();
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Report Saved')));
@@ -150,7 +151,6 @@ class _ReportDetailsState extends State<ReportDetails> {
                               .collection('projects')
                               .doc(widget.clientProjectName)
                               .update({'week-$weekNo': link});
-                          Get.back();
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,

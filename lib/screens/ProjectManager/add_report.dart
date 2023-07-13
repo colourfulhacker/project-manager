@@ -256,9 +256,16 @@ class _AddReportState extends State<AddReport> {
                   ),
 
                   InkWell(
-                    onTap: () {
-                      Get.to(() => ReportDetails(
-                          clientProjectName: widget.clientProjectName));
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ReportDetails(
+                                  clientProjectName: widget.clientProjectName,
+                                )),
+                      );
+
+                      setState(() {});
                     },
                     child: Container(
                       margin: const EdgeInsets.all(12),
