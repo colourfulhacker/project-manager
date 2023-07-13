@@ -1,4 +1,5 @@
 import 'package:cehpoint_project_management/Controllers/splash.dart';
+import 'package:cehpoint_project_management/screens/Authentication/login_screen.dart';
 
 import 'package:cehpoint_project_management/screens/Client/feedback.dart';
 import 'package:cehpoint_project_management/screens/Client/rate_our_service.dart';
@@ -60,6 +61,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                             width: MediaQuery.of(context).size.width * 0.15,
                           ),
                         ),
+                        IconButton(
+                            onPressed: () => Get.offAll(const LoginScreen()),
+                            icon: const Icon(Icons.exit_to_app))
                       ],
                     ),
                   ),
@@ -422,7 +426,9 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                             ],
                           );
                         } else {
-                          return null;
+                          return const SizedBox(
+                            height: 10,
+                          );
                         }
                       },
                     ),

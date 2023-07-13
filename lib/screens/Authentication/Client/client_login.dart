@@ -115,21 +115,21 @@ class _ClientLoginState extends State<ClientLogin> {
                                       hidePass = !hidePass;
                                     });
                                   },
-                                  icon: Icon(Icons.remove_red_eye)),
-                              enabledBorder: OutlineInputBorder(
+                                  icon: const Icon(Icons.remove_red_eye)),
+                              enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1,
                                   color: Color(0xff999999),
                                 ),
                               ),
-                              focusedBorder: OutlineInputBorder(
+                              focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1,
                                   color: Colors.black,
                                 ),
                               ),
                               hintText: "Password",
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                                 color: Color(0xff999999),

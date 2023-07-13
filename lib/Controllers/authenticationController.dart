@@ -26,6 +26,7 @@ class AuthenticationController extends GetxController {
           .collection('users')
           .doc(clientUserName.text)
           .get();
+
       print(ProjectNamesList.projectNames);
       if (usersData.data()!['password'] == clientPassword.text &&
           ProjectNamesList.projectNames
@@ -35,18 +36,7 @@ class AuthenticationController extends GetxController {
             projectName: usersData.data()!['project-name']));
       } else {
         print(ProjectNamesList.projectNames);
-        if (usersData.data()!['password'] == clientPassword.text &&
-            !ProjectNamesList.projectNames
-                .contains(usersData.data()!['project-name'])) {
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(clientUserName.text)
-              .delete()
-              .then(
-                (doc) => print("Document deleted"),
-                onError: (e) => print("Error updating document $e"),
-              );
-        }
+
         throw Exception('Invalid Credentials');
       }
     } catch (error) {

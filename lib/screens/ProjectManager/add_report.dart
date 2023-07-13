@@ -261,10 +261,8 @@ class _AddReportState extends State<AddReport> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ReportDetails(
-                                  clientProjectName: widget.clientProjectName,
-                                )),
+                                clientProjectName: widget.clientProjectName)),
                       );
-
                       setState(() {});
                     },
                     child: Container(
@@ -375,11 +373,20 @@ class _AddReportState extends State<AddReport> {
                                                 ),
                                                 //UPDATE REPORT
                                                 InkWell(
-                                                  onTap: () {
-                                                    Get.to(() => ReportDetails(
-                                                        clientProjectName: widget
-                                                            .clientProjectName,
-                                                        val: index + 1));
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ReportDetails(
+                                                                  clientProjectName:
+                                                                      widget
+                                                                          .clientProjectName,
+                                                                  val: index +
+                                                                      1)),
+                                                    );
+
+                                                    setState(() {});
                                                   },
                                                   child: const SizedBox(
                                                     height: 40,
@@ -480,7 +487,9 @@ class _AddReportState extends State<AddReport> {
                                   const SizedBox(height: 10),
                                 ],
                               )
-                            : null;
+                            : const SizedBox(
+                                height: 40,
+                              );
                       },
                     ),
                   ),

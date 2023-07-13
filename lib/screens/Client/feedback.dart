@@ -1,4 +1,3 @@
-import 'package:cehpoint_project_management/screens/ProjectManager/weekly_feedback.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -93,6 +92,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                           const SnackBar(content: Text('Enter feedback')));
                       return;
                     }
+                    Get.back();
                     ScaffoldMessenger.of(context).clearSnackBars();
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Feedback Saved')));
@@ -102,9 +102,6 @@ class _FeedbackFormState extends State<FeedbackForm> {
                         .update({
                       'week-${widget.weekNo}-feedback': feedbackController.text
                     });
-                    Get.to(() => WeeklyFeedback(
-                          projectName: widget.clientProjectName,
-                        ));
                   },
                   child: Container(
                     alignment: Alignment.center,

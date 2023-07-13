@@ -62,30 +62,42 @@ class _AddEmployeeState extends State<AddProject> {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('All Fields Required')));
         return;
-      } else {
-        ProjectNamesList.addName(projectName);
-        Get.offAll(const ProjectManagerLandingScreen());
-
+      }
+      if (ProjectNamesList.projectNames.contains(projectName)) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Project Saved')));
-        FocusManager.instance.primaryFocus?.unfocus();
-
-        final Uri whatsappUrl = Uri.parse(
-            "whatsapp://send?phone=+91 ${phoneController.text}"
-            "&text=${Uri.encodeComponent('Hi sir please login your account to check project progress :-\nUserId- ${usernameController.text}\nPassword- ${passwordController.text}')}");
-
-        _launchUrl(whatsappUrl);
-
-        clientNameController.clear();
-        companyNameController.clear();
-        passwordController.clear();
-        phoneController.clear();
-        usernameController.clear();
-        startDateController.clear();
-        endDateController.clear();
-        projectNameController.clear();
+            .showSnackBar(const SnackBar(content: Text('Project name exists')));
+        return;
       }
+      if (UsernameList.usernames.contains(username)) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Username exists')));
+        return;
+      }
+      ProjectNamesList.addName(projectName);
+      UsernameList.addName(username);
+      Get.offAll(const ProjectManagerLandingScreen());
+
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Project Saved')));
+      FocusManager.instance.primaryFocus?.unfocus();
+
+      final Uri whatsappUrl = Uri.parse(
+          "whatsapp://send?phone=+91 ${phoneController.text}"
+          "&text=${Uri.encodeComponent('Hi sir please login your account to check project progress :-\nUserId- ${usernameController.text}\nPassword- ${passwordController.text}')}");
+
+      _launchUrl(whatsappUrl);
+
+      clientNameController.clear();
+      companyNameController.clear();
+      passwordController.clear();
+      phoneController.clear();
+      usernameController.clear();
+      startDateController.clear();
+      endDateController.clear();
+      projectNameController.clear();
 
       await FirebaseFirestore.instance
           .collection('projects')

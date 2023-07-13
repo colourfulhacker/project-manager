@@ -143,10 +143,11 @@ class _ReportDetailsState extends State<ReportDetails> {
                                 const SnackBar(content: Text('Invalid link')));
                             return;
                           }
-                          Navigator.pop(context);
+
                           ScaffoldMessenger.of(context).clearSnackBars();
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Report Saved')));
+                          Navigator.pop(context);
                           await FirebaseFirestore.instance
                               .collection('projects')
                               .doc(widget.clientProjectName)

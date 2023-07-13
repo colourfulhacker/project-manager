@@ -42,16 +42,24 @@ class _ProjectManagerLandingScreenState
               content: Text('Project Deleted'),
             ),
           );
-          await FirebaseFirestore.instance
+          final dbP = FirebaseFirestore.instance
               .collection('projects')
-              .doc(ProjectNamesList.projectNames[index])
-              .delete()
-              .then(
+              .doc(ProjectNamesList.projectNames[index]);
+          final data = await dbP.get();
+          final user = data['username'];
+          final dbU = FirebaseFirestore.instance.collection('users').doc(user);
+          await dbU.delete().then(
                 (doc) => print("Document deleted"),
                 onError: (e) => print("Error updating document $e"),
               );
-          ProjectNamesList.removeName(ProjectNamesList.projectNames[index]);
 
+          await dbP.delete().then(
+                (doc) => print("Document deleted"),
+                onError: (e) => print("Error updating document $e"),
+              );
+
+          ProjectNamesList.removeName(ProjectNamesList.projectNames[index]);
+          UsernameList.removeName(user);
           Get.back();
         },
       );
