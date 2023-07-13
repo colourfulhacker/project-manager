@@ -18,6 +18,10 @@ class AddReport extends StatefulWidget {
 class _AddReportState extends State<AddReport> {
   @override
   Widget build(BuildContext context) {
+    void refresh() {
+      setState(() {});
+    }
+
     final namesData = FirebaseFirestore.instance
         .collection('projects')
         .doc(widget.clientProjectName)
@@ -70,8 +74,7 @@ class _AddReportState extends State<AddReport> {
                         ),
                         const SizedBox(width: 40),
                         IconButton(
-                            onPressed: () => setState(() {}),
-                            icon: const Icon(Icons.refresh))
+                            onPressed: refresh, icon: const Icon(Icons.refresh))
                       ],
                     ),
                   ),
