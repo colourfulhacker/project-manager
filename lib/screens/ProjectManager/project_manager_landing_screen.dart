@@ -99,7 +99,7 @@ class _ProjectManagerLandingScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.asset(
-                          "assets/logo sec 17.png",
+                          "assets/mobile.png",
                           height: 50,
                           width: MediaQuery.of(context).size.width * 0.15,
                         ),

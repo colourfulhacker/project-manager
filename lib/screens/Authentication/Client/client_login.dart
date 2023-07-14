@@ -34,7 +34,7 @@ class _ClientLoginState extends State<ClientLogin> {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/logo sec 17.png"),
+                      image: AssetImage("assets/mobile.png"),
                     ),
                   ),
                 ),

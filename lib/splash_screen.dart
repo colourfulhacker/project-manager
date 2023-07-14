@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(
       const Duration(seconds: 2),
-          () {
+      () {
         checkFirstSeen();
       },
     );
@@ -48,11 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 height: 150,
                 width: double.infinity,
-                child: Image.asset("assets/logo sec 17.png"),
+                child: Image.asset("assets/mobile.png"),
               ),
-              const SizedBox(
-                height: 20
-              ),
+              const SizedBox(height: 20),
               const Text(
                 "Project Management",
                 textAlign: TextAlign.center,

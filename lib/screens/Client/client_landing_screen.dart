@@ -56,7 +56,7 @@ class _ClientLandingScreenState extends State<ClientLandingScreen> {
                       children: [
                         Expanded(
                           child: Image.asset(
-                            "assets/logo sec 17.png",
+                            "assets/mobile.png",
                             height: 50,
                             width: MediaQuery.of(context).size.width * 0.15,
                           ),
