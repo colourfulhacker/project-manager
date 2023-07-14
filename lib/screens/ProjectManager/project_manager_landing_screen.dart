@@ -225,6 +225,10 @@ class _ProjectManagerLandingScreenState
                           const Center(
                             child: Text('No Projects(Try Refreshing)'),
                           ),
+                        if (ProjectNamesList.projectNames.isEmpty)
+                          const Center(
+                            child: Text('No Reports(Try Refreshing)'),
+                          ),
 
                         if (ProjectNamesList.projectNames.isNotEmpty)
                           ListView.builder(

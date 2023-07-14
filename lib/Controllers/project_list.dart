@@ -21,15 +21,22 @@ class ProjectNamesList {
   }
 
   static Future<void> getList() async {
-    final namesData = await FirebaseFirestore.instance
-        .collection('project-names')
-        .doc('list')
-        .get();
-    final names = namesData.data()!['names'];
+    try {
+      final namesData = await FirebaseFirestore.instance
+          .collection('project-names')
+          .doc('list')
+          .get();
+      final names = namesData.data()!['names'];
 
-    projectNames = [...names];
-    // return names;
-    print(projectNames);
+      projectNames = [...names];
+      // return names;
+      print(projectNames);
+    } catch (e) {
+      await FirebaseFirestore.instance
+          .collection('project-names')
+          .doc('list')
+          .set({'names': []});
+    }
   }
 }
 
@@ -54,14 +61,21 @@ class UsernameList {
   }
 
   static Future<void> getList() async {
-    final namesData = await FirebaseFirestore.instance
-        .collection('user-names')
-        .doc('list')
-        .get();
-    final names = namesData.data()!['names'];
+    try {
+      final namesData = await FirebaseFirestore.instance
+          .collection('user-names')
+          .doc('list')
+          .get();
+      final names = namesData.data()!['names'];
 
-    usernames = [...names];
-    // return names;
-    print(usernames);
+      usernames = [...names];
+      // return names;
+      print(usernames);
+    } catch (e) {
+      await FirebaseFirestore.instance
+          .collection('user-names')
+          .doc('list')
+          .set({'names': []});
+    }
   }
 }
